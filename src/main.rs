@@ -14,6 +14,8 @@ pub fn main() -> iced::Result {
 
 struct App {
     now: chrono::DateTime<chrono::Local>,
+    window_size: iced::Size,
+    padding: iced::Padding,
     digits: [Digit; 6],
 }
 
@@ -23,6 +25,14 @@ impl App {
         match message {
             Message::Tick(local_time) => {
                 self.now = local_time;
+            },
+            Message::WindowResized(size) => {
+                let unit = ((size.width-self.padding.horizontal()) / 24.0)
+                    .min((size.height-self.padding.vertical()) / 6.0);
+                self.window_size = iced::Size { 
+                    width: unit * 24.0,
+                    height: unit * 6.0,
+                };
             }
         }
         let hour = self.now.hour();
@@ -46,14 +56,21 @@ impl App {
             .height(Fill)
             .width(Fill)
         )    
-        .height(50*6)
-        .width(50*24)
+        .height(self.window_size.height)
+        .width(self.window_size.width)
+        .padding(self.padding)
         .into()
     }
 
     fn subscription(&self) -> Subscription<Message> {
-        time::every(time::Duration::from_millis(500))
-            .map(|_| Message::Tick(chrono::offset::Local::now()))
+        Subscription::batch([
+            time::every(time::Duration::from_millis(500))
+                .map(|_| Message::Tick(chrono::offset::Local::now())),
+            iced::window::resize_events().map(|(_id, size)| {
+                Message::WindowResized(size)
+            }),        
+        ])
+
     }
 }
 
@@ -61,7 +78,9 @@ impl Default for App {
     fn default() -> Self {
         Self {
             now: chrono::offset::Local::now(),
-            digits: [Digit::default(); 6]
+            window_size: iced::Size::ZERO,
+            padding: iced::Padding::from(5.0),
+            digits: [Digit::default(); 6],
         }
     }
 }
@@ -69,6 +88,7 @@ impl Default for App {
 #[derive(Debug, Clone, Copy)]
 enum Message {
     Tick(chrono::DateTime<chrono::Local>),
+    WindowResized(iced::Size)
 }
 
 impl Default for Message {
@@ -267,8 +287,9 @@ impl<Degrees> canvas::Program<Degrees> for MiniClock {
         frame.translate(Vector::new(center.x, center.y));
         
 
-        let radius = frame.width().min(frame.height()) / 2.0;
+        let mut radius = frame.width().min(frame.height()) / 2.0;
         let width = 2_f32;
+        radius -= width;
         let border = Path::circle(Point::ORIGIN, radius);
         let hand = Path::line(Point::ORIGIN, 
                                         Point::new(radius, 0.0));
