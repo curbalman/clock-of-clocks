@@ -19,28 +19,37 @@ pub fn main() -> iced::Result {
 
 struct App {
     now: chrono::DateTime<chrono::Local>,
-}
-
-#[derive(Debug, Clone, Copy)]
-enum Message {
-    Tick(chrono::DateTime<chrono::Local>),
+    digits: [Digit; 6],
 }
 
 impl App {
     fn update(&mut self, message: Message) {
+        use chrono::Timelike;
         match message {
             Message::Tick(local_time) => {
                 self.now = local_time;
             }
         }
+        let hour = self.now.hour();
+        let minute = self.now.minute();
+        let second = self.now.second();
+        self.digits[0].update(SetDigit::Value(hour/10));
+        self.digits[1].update(SetDigit::Value(hour%10));
+        self.digits[2].update(SetDigit::Value(minute/10));
+        self.digits[3].update(SetDigit::Value(minute%10));
+        self.digits[4].update(SetDigit::Value(second/10));
+        self.digits[5].update(SetDigit::Value(second%10));
     }
 
     fn view(&self) -> Element<Message> {
-        use chrono::Timelike;
-        widget::text!(
-            "{:0>2}:{:0>2}:{:0>2}",
-            self.now.hour(), self.now.minute(), self.now.second()
-        ).size(40).into()
+        widget::row(self.digits
+            .iter()
+            .map(Digit::view)
+            .map(|digit| {
+                digit.map(|_| Message::default())
+            })
+        )
+        .into()
     }
 
     fn subscription(&self) -> Subscription<Message> {
@@ -53,7 +62,45 @@ impl Default for App {
     fn default() -> Self {
         Self {
             now: chrono::offset::Local::now(),
+            digits: [Digit::default(); 6]
         }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+enum Message {
+    Tick(chrono::DateTime<chrono::Local>),
+}
+
+impl Default for Message {
+    fn default() -> Self {
+        Self::Tick(chrono::offset::Local::now())
+    }
+}
+
+/****************************************/
+/*                                      */
+/*              Digit                   */
+/*                                      */
+/****************************************/
+#[derive(Default, Copy, Clone)]
+struct Digit {
+    value: u32,
+}
+
+enum SetDigit {
+    Value(u32),
+}
+
+impl Digit {
+    fn view(&self) -> Element<SetDigit> {
+        widget::text(self.value.to_string()).size(40).into()
+    }
+
+    fn update(&mut self, message: SetDigit) {
+        let SetDigit::Value(val) = message;
+        if val > 9 { panic!() }
+        self.value = val;
     }
 }
 
