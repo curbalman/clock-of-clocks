@@ -1,5 +1,5 @@
 use iced::time;
-use iced::{ widget, Degrees, Element, Fill, Subscription, Vector, Color, Rectangle, Point };
+use iced::{ widget, Degrees, Element, Fill, Subscription, Vector, Rectangle, Point, Theme, Background, Color };
 use iced::widget::canvas;
 use iced::widget::canvas::{stroke, LineCap, Path, Stroke};
 
@@ -8,7 +8,9 @@ pub fn main() -> iced::Result {
 
     iced::application("A Clock made of Clocks", App::update, App::view)
         .subscription(App::subscription)
+        .theme(App::theme)
         .antialiasing(true)
+        .transparent(true)
         .run()
 }
 
@@ -59,6 +61,9 @@ impl App {
         .height(self.window_size.height)
         .width(self.window_size.width)
         .padding(self.padding)
+        .style(|_theme: &Theme| {
+            widget::container::Style::default().background(Background::Color(Color::TRANSPARENT))
+        })
         .into()
     }
 
@@ -72,6 +77,13 @@ impl App {
         ])
 
     }
+
+    fn theme(&self) -> Theme {
+        // Theme::ALL[(self.now.timestamp() as usize / 10) % Theme::ALL.len()]
+        //     .clone()
+        Theme::GruvboxLight
+    }
+
 }
 
 impl Default for App {
@@ -79,7 +91,7 @@ impl Default for App {
         Self {
             now: chrono::offset::Local::now(),
             window_size: iced::Size::ZERO,
-            padding: iced::Padding::from(5.0),
+            padding: iced::Padding::from(0.0),
             digits: [Digit::default(); 6],
         }
     }
@@ -278,7 +290,7 @@ impl<Degrees> canvas::Program<Degrees> for MiniClock {
         &self,
         _state: &Self::State,
         renderer: &iced::Renderer,
-        _theme: &iced::Theme,
+        theme: &iced::Theme,
         bounds: Rectangle,
         _cursor: iced::mouse::Cursor,
     ) -> Vec<canvas::Geometry> {
@@ -294,16 +306,17 @@ impl<Degrees> canvas::Program<Degrees> for MiniClock {
         let hand = Path::line(Point::ORIGIN, 
                                         Point::new(radius, 0.0));
 
+        let palette = theme.extended_palette();
         let thin_stroke = Stroke {
             width,
-            style: stroke::Style::Solid(Color::BLACK),
+            style: stroke::Style::Solid(palette.secondary.base.color),
             line_cap: LineCap::Round,
             ..Stroke::default()
         };
 
         let wide_stroke = Stroke {
             width: width * 2.0,
-            style: stroke::Style::Solid(Color::BLACK),
+            style: stroke::Style::Solid(palette.primary.base.text),
             line_cap: LineCap::Round,
             ..Stroke::default()
         };
