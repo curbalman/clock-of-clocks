@@ -9,16 +9,24 @@
 			"en-us" : 
 			{
 				"ui_backgroundimage" : "Background Image",
+				"ui_cellBGColor" : "Cell Background Color",
+				"ui_cellOpacity" : "Cell Opacity",
+				"ui_handColor" : "Hand Color",
 				"ui_handcolor" : "Hand Color",
+				"ui_scale" : "Scale",
 				"ui_transitionDuration" : "Duration of animations",
-				"ui_scale": "Scale"
+				"ui_handOpacity" : "Hand Opacity"
 			},
 			"zh-chs" : 
 			{
 				"ui_backgroundimage" : "背景图片",
+				"ui_cellBGColor" : "表盘颜色",
+				"ui_cellOpacity" : "表盘透明度",
+				"ui_handColor" : "指针颜色",
 				"ui_handcolor" : "指针颜色",
+				"ui_scale" : "缩放",
 				"ui_transitionDuration" : "动画时间",
-				"ui_scale": "缩放"
+				"ui_handOpacity" : "指针透明度"
 			}
 		},
 		"properties" : 
@@ -30,6 +38,35 @@
 				"text" : "ui_backgroundimage",
 				"type" : "file",
 				"value" : ""
+			},
+			"cellBGColor" : 
+			{
+				"index" : 3,
+				"order" : 103,
+				"text" : "ui_cellBGColor",
+				"type" : "color",
+				"value" : "0.08627450980392157 0.08627450980392157 0.08627450980392157"
+			},
+			"cellOpacity" : 
+			{
+				"fraction" : true,
+				"index" : 4,
+				"max" : 1,
+				"min" : 0,
+				"order" : 104,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "ui_cellOpacity",
+				"type" : "slider",
+				"value" : 0.5
+			},
+			"handColor" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "ui_handColor",
+				"type" : "color",
+				"value" : "0.8784313725490196 1 0.3333333333333333"
 			},
 			"scale" : 
 			{
@@ -63,6 +100,19 @@
 				"text" : "ui_transitionDuration",
 				"type" : "slider",
 				"value" : 0.68
+			},
+			"handOpacity" : 
+			{
+				"fraction" : true,
+				"index" : 6,
+				"max" : 1,
+				"min" : 0,
+				"order" : 106,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "ui_handOpacity",
+				"type" : "slider",
+				"value" : 1
 			}
 		}
 	},

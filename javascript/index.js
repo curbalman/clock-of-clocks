@@ -171,24 +171,21 @@ const shapes = {
 window.wallpaperPropertyListener = {
     applyUserProperties: function(properties) {
         let r = document.querySelector(':root');
-        // if (properties.handcolor) {
-        //     // Convert the custom color to 0 - 255 range for CSS usage
-        //     let handcolor = properties.handcolor.value.split(' ');
-        //     handcolor = handcolor.map(function(c) {
-        //         return Math.ceil(c * 255);
-        //     });
-        //     let handcolorAsCSS = 'rgb(' + handcolor + ')';
-        //     r.style.setProperty('--hand-color', handcolorAsCSS);
-        // }
-
-        if (properties.schemecolor) {
+        if (properties.handColor) {
             // Convert the custom color to 0 - 255 range for CSS usage
-            let handcolor = properties.schemecolor.value.split(' ');
+            let handcolor = properties.handColor.value.split(' ');
             handcolor = handcolor.map(function(c) {
                 return Math.ceil(c * 255);
             });
-            let handcolorAsCSS = 'rgb(' + handcolor + ')';
-            r.style.setProperty('--hand-color', handcolorAsCSS);
+            r.style.setProperty('--hand-color-rgb', handcolor);
+        }
+        if (properties.cellBGColor) {
+            // Convert the custom color to 0 - 255 range for CSS usage
+            let rgb = properties.cellBGColor.value.split(' ');
+            rgb = rgb.map(function(c) {
+                return Math.ceil(c * 255);
+            });
+            r.style.setProperty('--cell-background-rgb', rgb);
         }
 
         if (properties.backgroundimage) {
@@ -201,6 +198,12 @@ window.wallpaperPropertyListener = {
         }
         if (properties.scale) {
             r.style.setProperty('--root-font-size', properties.scale.value + "px");
+        }
+        if (properties.cellOpacity) {
+            r.style.setProperty('--cell-opacity', properties.cellOpacity.value);
+        }
+        if (properties.handOpacity) {
+            r.style.setProperty('--hand-color-opacity', properties.handOpacity.value);
         }
 
         // console.log(properties);
