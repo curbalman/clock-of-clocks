@@ -199,6 +199,10 @@ window.wallpaperPropertyListener = {
         if (properties.transitionDuration) {
             r.style.setProperty('--transition', properties.transitionDuration.value + "s");
         }
+        if (properties.scale) {
+            r.style.setProperty('--root-font-size', properties.scale.value + "px");
+        }
+
         // console.log(properties);
     },
 };

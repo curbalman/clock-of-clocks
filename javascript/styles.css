@@ -1,13 +1,12 @@
 :root {
-  --field-gap: 2rem;
-
+  --pair-gap: 2rem;
   --cell-size: 3rem;
   --cell-border-size: max(calc(var(--cell-size) / 16), 1.5px);
   --cell-background-color: oklch(20% 0 0);
   --cell-border-color: oklch(30% 0 0);
-
   --hand-color: oklch(94.75% 0.1916 119.15);
   --transition: 0.68s;
+  --root-font-size: /* broswer default */;
 }
 
 * {
@@ -15,6 +14,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+    font-size: var(--root-font-size);
+} 
 
 body {
   background-color: oklch(0% 0 0);
@@ -27,7 +30,7 @@ body {
   align-items: flex-start;
   overflow: hidden;
   display: flex;
-  gap: var(--field-gap);
+  gap: var(--pair-gap);
 }
 
 #clock > .pair {
@@ -83,7 +86,7 @@ body {
 
 @media (max-width: 1024px) {
   :root {
-    --field-gap: 1rem;
+    --pair-gap: 1rem;
 
     --cell-size: 1.5rem;
   }
@@ -91,7 +94,7 @@ body {
 
 @media (max-width: 768px) {
   :root {
-    --field-gap: 0.5rem;
+    --pair-gap: 0.5rem;
 
     --cell-size: 1rem;
   }

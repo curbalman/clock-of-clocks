@@ -10,13 +10,15 @@
 			{
 				"ui_backgroundimage" : "Background Image",
 				"ui_handcolor" : "Hand Color",
-				"ui_transitionDuration" : "Duration of animations"
+				"ui_transitionDuration" : "Duration of animations",
+				"ui_scale": "Scale"
 			},
 			"zh-chs" : 
 			{
 				"ui_backgroundimage" : "背景图片",
 				"ui_handcolor" : "指针颜色",
-				"ui_transitionDuration" : "动画时间"
+				"ui_transitionDuration" : "动画时间",
+				"ui_scale": "缩放"
 			}
 		},
 		"properties" : 
@@ -28,6 +30,19 @@
 				"text" : "ui_backgroundimage",
 				"type" : "file",
 				"value" : ""
+			},
+			"scale" : 
+			{
+				"fraction" : true,
+				"index" : 2,
+				"max" : 64,
+				"min" : 0,
+				"order" : 102,
+				"precision" : 2,
+				"step" : 0.1,
+				"text" : "ui_scale",
+				"type" : "slider",
+				"value" : 16
 			},
 			"schemecolor" : 
 			{
