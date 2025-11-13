@@ -1,6 +1,6 @@
 {
 	"contentrating" : "Everyone",
-	"description" : "- 支持自定义背景图片和指针颜色\r\n- Custom background image and clock hand colors\r\n\r\nInspired by: github.com/curbalman/clock-of-clocks",
+	"description" : "- 支持自定义背景图片和时钟颜色、透明度 等\n- Custom background image and clock colors, opacity， etc.\n\nSource: github.com/curbalman/clock-of-clocks",
 	"file" : "index.html",
 	"general" : 
 	{
@@ -12,21 +12,23 @@
 				"ui_cellBGColor" : "Cell Background Color",
 				"ui_cellOpacity" : "Cell Opacity",
 				"ui_handColor" : "Hand Color",
+				"ui_handOpacity" : "Hand Opacity",
 				"ui_handcolor" : "Hand Color",
 				"ui_scale" : "Scale",
-				"ui_transitionDuration" : "Duration of animations",
-				"ui_handOpacity" : "Hand Opacity"
+				"ui_transitionDuration" : "Duration of animations (ms)",
+				"ui_refreshTime" : "Refresh Time (s)"
 			},
 			"zh-chs" : 
 			{
-				"ui_backgroundimage" : "背景图片",
+				"ui_backgroundimage" : "壁纸",
 				"ui_cellBGColor" : "表盘颜色",
 				"ui_cellOpacity" : "表盘透明度",
 				"ui_handColor" : "指针颜色",
+				"ui_handOpacity" : "指针透明度",
 				"ui_handcolor" : "指针颜色",
 				"ui_scale" : "缩放",
-				"ui_transitionDuration" : "动画时间",
-				"ui_handOpacity" : "指针透明度"
+				"ui_transitionDuration" : "动画时间 (ms)",
+				"ui_refreshTime" : "刷新时间 (s)"
 			}
 		},
 		"properties" : 
@@ -68,6 +70,19 @@
 				"type" : "color",
 				"value" : "0.8784313725490196 1 0.3333333333333333"
 			},
+			"handOpacity" : 
+			{
+				"fraction" : true,
+				"index" : 6,
+				"max" : 1,
+				"min" : 0,
+				"order" : 106,
+				"precision" : 3,
+				"step" : 0.01,
+				"text" : "ui_handOpacity",
+				"type" : "slider",
+				"value" : 1
+			},
 			"scale" : 
 			{
 				"fraction" : true,
@@ -86,7 +101,7 @@
 				"order" : 0,
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
-				"value" : "0.8784313725490196 1 0.3333333333333333"
+				"value" : "0.0705882352941176 0.0705882352941176 0.0705882352941176"
 			},
 			"transitionDuration" : 
 			{
@@ -101,16 +116,16 @@
 				"type" : "slider",
 				"value" : 0.68
 			},
-			"handOpacity" : 
+			"refreshTime" : 
 			{
 				"fraction" : true,
-				"index" : 6,
-				"max" : 1,
+				"index" : 7,
+				"max" : 5,
 				"min" : 0,
-				"order" : 106,
-				"precision" : 3,
-				"step" : 0.01,
-				"text" : "ui_handOpacity",
+				"order" : 107,
+				"precision" : 2,
+				"step" : 0.1,
+				"text" : "ui_refreshTime",
 				"type" : "slider",
 				"value" : 1
 			}
@@ -124,7 +139,7 @@
 	"tags" : [ "Sci-Fi" ],
 	"title" : "钟之鐘 - A Clock made of Clocks",
 	"type" : "web",
-	"version" : 1,
+	"version" : 2,
 	"visibility" : "public",
 	"workshopid" : "3604124423",
 	"workshopurl" : "steam://url/CommunityFilePage/3604124423"
